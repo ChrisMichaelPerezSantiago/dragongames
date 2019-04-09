@@ -101,15 +101,16 @@ const getAllVideos = async () => {
 
 
 
-const videoContent = async() =>{
+const getVideoContent = async() =>{
   var result = await getAllVideos();
   return await Promise.all(result)
 }
 
-videoContent().then((d) =>{
-  console.log(d);
-})
+//videoContent().then((d) =>{
+//  console.log(d);
+//})
 
 module.exports = {
   getAll,
+  getVideoContent
 };
