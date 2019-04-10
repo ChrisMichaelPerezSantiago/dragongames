@@ -15,5 +15,14 @@ export const actions = {
     }).catch((err) =>{
       console.log(err);
     });
+  },
+  getAllVideoContent({commit}){
+    T.get(VIDEO_CONTENT).then((res) =>{
+      console.log("\n⚠️ ALL_VIDEO_CONTENT (res): " , res.data);
+      commit(MUTYPE.SET_VIDEO_CONTENT , res.data);
+      commit(MUTYPE.IS_LOADING , false);
+    }).catch((err) =>{
+      console.log(err);
+    });
   }
 };

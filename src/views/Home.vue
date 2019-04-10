@@ -21,6 +21,7 @@
     name: 'home',
     created(){
       this.$store.dispatch('getAllContent');
+      this.$store.dispatch('getAllVideoContent');
     },
     computed:{
       ...mapState(['allContent' , 'videoContent' , 'isLoading'])
