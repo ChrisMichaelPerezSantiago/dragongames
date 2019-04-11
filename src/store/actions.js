@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const T = axios.create({baseURL: String(BASE_URL)});
 const pagin = require('./pagination/paginator');
-const {paginator} = pagin;
+
 
 export const actions = {
   getAllContent({commit}){
@@ -16,10 +16,11 @@ export const actions = {
       console.log(err);
     });
   },
-  getAllVideoContent({commit}){
+  getAllVideoContent({commit} , page){
     T.get(VIDEO_CONTENT).then((res) =>{
       console.log("\n⚠️ ALL_VIDEO_CONTENT (res): " , res.data);
-      commit(MUTYPE.SET_VIDEO_CONTENT , res.data);
+      const pagination = pagin.paginator(res.data , page , 5)
+      commit(MUTYPE.SET_VIDEO_CONTENT , pagination);
       commit(MUTYPE.IS_LOADING , false);
     }).catch((err) =>{
       console.log(err);
