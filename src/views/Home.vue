@@ -108,6 +108,20 @@
                     <li>Videos</li>
                   </ul>
                 </div>
+                  <div class="content-pagin">
+                  <paginate
+                    class="paginator-container"
+                    v-model="contentpage"
+                    :page-count="allContent.length"
+                    :page-range="3"
+                    :margin-pages="2"
+                    :click-handler="nextContent"
+                    :prev-text="'Prev'"
+                    :next-text="'Next'"
+                    :container-class="'pagination'"
+                    :page-class="'page-item'">
+                  </paginate>
+               </div>
               </div>
               <div id="main" class="watchlist-list">
                 
@@ -116,8 +130,11 @@
                 </div>
               </div>
               <div v-else id="watchlist" class="col s12 watchlist">
+              <div class="col s10 push-s1 m6 l3 movie" v-for="(item, index) in allContent" :key="index">
+                <img class="images" :src="item.img" alt="" sizes="" srcset="">
+                <!--
                 <div class="col s10 push-s1 m6 l3 movie" v-for="(item, index) in allContent" :key="index">
-                   <md-card>
+                   <md-card class="v-card">
                       <md-card-header>
                         <md-avatar>
                           <img :src="item.img" alt="Avatar">
@@ -140,9 +157,20 @@
                         <md-button>Action</md-button>
                       </md-card-actions>
                   </md-card>
+                -->
                 </div>
+                <!--
+                <div class="text-xs-center">
+                  <v-pagination
+                    color="red"
+                    class="pagin"
+                    v-model="contentpage"
+                    :length="allContent.length"
+                    circle
+                  ></v-pagination>
+                </div>
+                -->
               </div>
-
               </div>
             </div>
           </div>
@@ -150,18 +178,27 @@
             <div class="col s12 upcoming-head valign-wrapper">
               <h5 class="center"><i class="material-icons">slow_motion_video</i>VIDEOS</h5>
             </div>
+
             <div class="col s12 upcoming-list">
               <div v-for="(item, index) in videoContent" :key="index">
                   <video  width="310" height="210" :poster="item.img" controls :src="item.src" :title="item.title"></video>
               </div>
             </div>
               <div class="text-xs-center">
-                <v-pagination
-                  class="pagin"
-                  v-model="page"
-                  :length="videoContent.length"
-                  circle
-                ></v-pagination>
+              <div class="videos-pagin">
+                <paginate
+                  class="paginator-container"
+                  v-model="videopage"
+                  :page-count="videoContent.length"
+                  :page-range="3"
+                  :margin-pages="2"
+                  :click-handler="nextVideos"
+                  :prev-text="'Prev'"
+                  :next-text="'Next'"
+                  :container-class="'pagination'"
+                  :page-class="'page-item'">
+                </paginate>
+               </div>
               </div>
           </div>
         </div>
@@ -178,20 +215,29 @@ import { mapState } from "vuex";
 
 export default {
   name: "home",
-  data(){
-    return{
-      page: 0,
-    }
-  },
-  created() {
-    this.$store.dispatch("getAllContent");
-    this.$store.dispatch("getAllVideoContent" , this.page);
+  data() {
+    return {
+      contentpage: 0,
+      videopage: 0
+    };
   },
   computed: {
     ...mapState(["allContent", "videoContent", "isLoading"])
   },
+  created() {
+    this.$store.dispatch("getAllContent", this.contentpage);
+    this.$store.dispatch("getAllVideoContent", this.videopage); 
+  },
+  methods:{
+    nextContent(){
+      this.$store.dispatch("getAllContent", this.contentpage);
+    },
+    nextVideos(){
+      this.$store.dispatch("getAllVideoContent", this.videopage); 
+    }
+  },
   mounted() {
     scripts();
-  }
+  },
 };
 </script>

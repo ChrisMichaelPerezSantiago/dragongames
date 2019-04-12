@@ -7,8 +7,20 @@
   vertical-align: top;
 }
 
-.pagin{
-  height: 0px !important;
+.v-card{
+
+}
+
+.content-pagin{
+  display: block;
+  margin: auto;
+  text-align: center;
+  padding-left: 100px;
+}
+.videos-pagin{
+  display: block;
+  margin: auto;
+  text-align: center;
 }
 
 body {

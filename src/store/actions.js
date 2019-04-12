@@ -7,10 +7,11 @@ const pagin = require('./pagination/paginator');
 
 
 export const actions = {
-  getAllContent({commit}){
+  getAllContent({commit} , page){
     T.get(ALL_CONTENT).then((res) =>{ 
       console.log("\n⚠️ ALL_CONTENT (res): " , res.data);
-      commit(MUTYPE.SET_ALL_CONTENT , res.data);
+      const pagination = pagin.paginator(res.data , page , 12)
+      commit(MUTYPE.SET_ALL_CONTENT , pagination);
       commit(MUTYPE.IS_LOADING , false);
     }).catch((err) =>{
       console.log(err);
