@@ -1,7 +1,7 @@
 <template>
   <body>
     <div class="video-trailer">
-            <div class="close-trailer"><i class="material-icons">close</i></div>
+      <div class="close-trailer"><i class="material-icons">close</i></div>
     </div>
     <header>
       <nav>
@@ -34,34 +34,31 @@
     <div class="app">
       <div class="had-container">
         <div class="row">
-<div id="modal1" class="modal">           <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
+          <div id="modal1" class="modal">
+            <div class="modal-content">
+               <h4>Modal Header</h4>
+                <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
           </div>
-                      <div class="col s12 menu-section">
-                        <div id="search" class="search col s6 offset-s3 valign-wrapper">
-                <form>
-                  <input type="text" placeholder="Search Game ...">
-                  <button type="submit" name="btn">
-                    <i class="material-icons">search</i>
-                  </button>
-                </form>
+          <div class="col s12 menu-section">
+            <div id="search" class="search col s6 offset-s3 valign-wrapper">
+            <form>
+              <input type="text" placeholder="Search Game ...">
+                <button type="submit" name="btn">
+                <i class="material-icons">search</i>
+                </button>
+              </form>
             </div>
             <div class="close"><i class="material-icons">close</i></div>
+          </div>
 
-                    </div>
-
-
-    
-          
           <div class="col s12 m9 l10 main">
             <div class="main-head col s12">
               <div class="col head-logo">
-                <h3><i class="fas fa-dragon"></i>Dragon Games</h3>
+                <h3 style="color:black"><i class="fas fa-dragon"></i><b style="color: #bf360c;">D</b>ragon <b style="color: #bf360c;">G</b>ames</h3>
               </div>
               <div class="col head-info hide-on-med-and-down">
                 <ul class="valign-wrapper">
@@ -125,51 +122,38 @@
               </div>
               <div id="main" class="watchlist-list">
                 
-                <div class="col s12 load" v-if="isLoading">
-                  <div class="col s4 offset-s4 spinner">
+              <div class="col s12 load" v-if="isLoading">
+                <div class="col s4 offset-s4 spinner">
                 </div>
               </div>
               <div v-else id="watchlist" class="col s12 watchlist">
               <div class="col s10 push-s1 m6 l3 movie" v-for="(item, index) in allContent" :key="index">
-                <img class="images" :src="item.img" alt="" sizes="" srcset="">
-                <!--
-                <div class="col s10 push-s1 m6 l3 movie" v-for="(item, index) in allContent" :key="index">
-                   <md-card class="v-card">
-                      <md-card-header>
-                        <md-avatar>
-                          <img :src="item.img" alt="Avatar">
-                        </md-avatar>
+                <img class="images" :src="item.img" alt="item.title">
+                  
+                    <md-dialog style="color:white;" :md-active.sync="showDialog">
+                      <md-dialog-title>{{item.title}}</md-dialog-title>
 
-                        <div class="md-title">{{item.title}}</div>
-                        <div class="md-subhead">{{item.platform}}</div>
-                      </md-card-header>
+                      <md-tabs md-dynamic-height>
+                        <md-tab md-label="Synopsis">
+                          <p>{{item.synopsis}}</p>
+                        </md-tab>
 
-                      <md-card-media>
-                        <img  :src="item.img" alt="People">
-                      </md-card-media>
+                        <md-tab md-label="Platforms">
+                          <p>{{item.platform}}</p>
+                        </md-tab>
 
-                      <md-card-content>
-                        {{item.synopsis}}
-                      </md-card-content>
+                        <md-tab md-label="Account">
+                          <p></p>
+                        </md-tab>
+                      </md-tabs>
 
-                      <md-card-actions>
-                        <md-button>Action</md-button>
-                        <md-button>Action</md-button>
-                      </md-card-actions>
-                  </md-card>
-                -->
+                      <md-dialog-actions>
+                        <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                      </md-dialog-actions>
+                    </md-dialog>
+
+                    <md-button  class="md-second md-raised" @click="showDialog = true">Content</md-button>
                 </div>
-                <!--
-                <div class="text-xs-center">
-                  <v-pagination
-                    color="red"
-                    class="pagin"
-                    v-model="contentpage"
-                    :length="allContent.length"
-                    circle
-                  ></v-pagination>
-                </div>
-                -->
               </div>
               </div>
             </div>
@@ -183,8 +167,7 @@
               <div v-for="(item, index) in videoContent" :key="index">
                   <video  width="310" height="210" :poster="item.img" controls :src="item.src" :title="item.title"></video>
               </div>
-            </div>
-              <div class="text-xs-center">
+               <div class="text-xs-center">
               <div class="videos-pagin">
                 <paginate
                   class="paginator-container"
@@ -200,6 +183,8 @@
                 </paginate>
                </div>
               </div>
+            </div>
+             
           </div>
         </div>
       </div>    
@@ -215,12 +200,11 @@ import { mapState } from "vuex";
 
 export default {
   name: "home",
-  data() {
-    return {
-      contentpage: 0,
-      videopage: 0
-    };
-  },
+  data: () =>({
+    showDialog: false,
+    contentpage: 0,
+    videopage: 0,
+  }),
   computed: {
     ...mapState(["allContent", "videoContent", "isLoading"])
   },

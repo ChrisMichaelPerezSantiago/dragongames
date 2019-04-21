@@ -7,6 +7,9 @@
   vertical-align: top;
 }
 
+.source-logo{
+}
+
 .v-card{
 
 }
@@ -21,6 +24,11 @@
   display: block;
   margin: auto;
   text-align: center;
+  padding-top: 10px;
+}
+
+.md-dialog {
+  max-width: 768px;
 }
 
 body {
@@ -217,6 +225,7 @@ header {
 .upcoming-list,
 .movie-view {
   height: calc(100vh - 50px);
+  width: 100% !important;
 }
 .col.movie {
   padding: 0 0.75rem !important;
@@ -468,7 +477,7 @@ input[type=text]:not(.browser-default) {
   overflow: hidden;
 }
 .spinner::after {
-  background: #fff;
+  background: #bf360c;
   content: '';
   width: 100%;
   left: 0;
